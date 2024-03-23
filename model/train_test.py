@@ -58,8 +58,8 @@ def train_and_test():
     torch.save(net.state_dict(), "./model/model_state_dict.pth")
 
     #testing
-    metric_accuracy = Accuracy(task='multiclass', num_classes=2, average='macro')
-    metric_precision = Precision(task='multiclass', num_classes=2, average='macro') 
+    metric_accuracy = Accuracy(task='multiclass', num_classes=3, average='macro')
+    metric_precision = Precision(task='multiclass', num_classes=3, average='macro') 
 
     net.eval()
     with torch.no_grad():

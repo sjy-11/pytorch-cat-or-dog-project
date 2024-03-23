@@ -26,7 +26,3 @@ def get_image_prediction(image_path):
         return classes[pred.item()], confidence.item()
     else:
         return "Not a Cat or Dog", 1 - confidence.item()
-        
-
-
-get_image_prediction("../data/test3.jpg")
