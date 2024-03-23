@@ -1,4 +1,4 @@
-from model import Net
+from model.model import Net
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
@@ -21,8 +21,6 @@ def get_image_prediction(image_path):
     classes = ['Cat', 'Dog']
 
     if confidence.item() >= 0.5:
-        print(classes[pred.item()])
-        print(confidence.item())
         return classes[pred.item()], confidence.item()
     else:
         return "Not a Cat or Dog", 1 - confidence.item()

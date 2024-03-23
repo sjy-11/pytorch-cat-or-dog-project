@@ -12,7 +12,6 @@ net = Net()
 
 #prepare the train and test datasets
 train_transform = transforms.Compose([
-    transforms.RandomRotation(45),
     transforms.RandomHorizontalFlip(),
     transforms.RandomAutocontrast(),
     transforms.Resize((128, 128)),
@@ -25,35 +24,33 @@ test_transforms = transforms.Compose([
 ])
 
 #image paths
-image_path_train = "../data/training"
-image_path_test = "../data/testing"
+image_path_train = "../data/training_set"
+image_path_test = "../data/test_set"
 
 train_dataset = ImageFolder(image_path_train, transform=train_transform)
 test_dataset = ImageFolder(image_path_test, transform=test_transforms)
-train_dataloader = DataLoader(train_dataset, batch_size=16, shuffle=True)
-test_dataloader = DataLoader(test_dataset, batch_size=16, shuffle=True)
+train_dataloader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(test_dataset, batch_size=64, shuffle=True)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(net.parameters(), lr=1e-3, weight_decay=1e-5)
 
-
 def train_and_test():
     #training
-    num_epochs = 50
-    if __name__ == "__main__":
-        for epoch in range(num_epochs):
-            epoch_loss = 0
-            for images, labels in train_dataloader:
-                outputs = net(images)
-                loss = criterion(outputs, labels)
+    num_epochs = 20
+    for epoch in range(num_epochs):
+        epoch_loss = 0
+        for images, labels in train_dataloader:
+            outputs = net(images)
+            loss = criterion(outputs, labels)
 
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-                epoch_loss += loss.item()
+            epoch_loss += loss.item()
             
-            print(f"Epoch: {epoch}, loss: {epoch_loss}")
+        print(f"Epoch: {epoch}, loss: {epoch_loss}")
 
     torch.save(net.state_dict(), "./model/model_state_dict.pth")
 
