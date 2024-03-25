@@ -31,9 +31,9 @@ def handle_request():
                 model = Net()
                 model.load_state_dict(torch.load("./model/model_state_dict.pth"))
                 c, confidence = get_image_prediction(path)
-                prediction = f"<b>{c}</b>, confidence: {confidence:.2%}"
+                confidence = f'{confidence:.2%}'
                 os.remove(path) #delete image after prediction
-                return render_template("html/index.html", prediction=prediction)
+                return render_template("html/index.html", classification=c, confidence=confidence)
             else:
                 return render_template("html/index.html", warn=True)
         return render_template("html/index.html")

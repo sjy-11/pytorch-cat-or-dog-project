@@ -8,14 +8,23 @@
     </head>
     <body class="d-flex justify-content-center align-items-center vh-100">
         <div class="container">
-            <h1 class="display-1 text-center m-5">Cat or Dog Classifier</h1>
-            <section class="container-fluid">
+            {% if classification == 'Dog' %}
+                <div class="text-center my-3">
+                    <img class="w-50 text-center" src="{{ url_for('static', filename='images/dog_illustration.jpg') }}" alt="dog image">
+                </div>
+            {% elif classification == 'Cat' %}
+                <div class="text-center my-3">
+                    <img class="w-25 text-center" src="{{ url_for('static', filename='images/cat_illustration.png') }}" alt="cat image">
+                </div>
+            {% endif %}
+            <section class="container-fluid bg-dark text-light rounded-5 py-5 px-sm-5">
+                <h1 class="display-1 text-center m-sm-5">Cat or Dog Classifier</h1>
                 <form class="px-5 text-center" action="/" method="post" enctype="multipart/form-data">
                     <input class="form-control" type="file" name="imagefile">
-                    <input class="btn btn-secondary mt-2 w-25" type="submit" value="Classify Image">
+                    <input class="btn btn-secondary mt-2 mb-5 w-25" type="submit" value="Classify Image">
                 </form>
-                {% if prediction %}
-                    <p class="text-success text-center fs-3">Image is a {{prediction|safe}}</p>
+                {% if classification %}
+                    <p class="text-success text-center fs-3">Image is a <b>{{classification}}!</b>, confidence: {{confidence}}</p>
                 {% endif %}
     
                 {% if warn %}
