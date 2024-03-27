@@ -35,6 +35,7 @@ test_dataloader = DataLoader(test_dataset, batch_size=64, shuffle=True)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(net.parameters(), lr=1e-3, weight_decay=1e-5)
 
+
 def train_and_test():
     #training
     num_epochs = 20

@@ -14,6 +14,7 @@ def get_image_prediction(image_path):
     image = transform(image).unsqueeze(0)
 
     with torch.no_grad():
+        model.eval()
         outputs = model(image)
         probs = torch.nn.functional.softmax(outputs, dim=1)
         confidence, pred = torch.max(probs, 1)
